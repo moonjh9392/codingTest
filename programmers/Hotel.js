@@ -18,7 +18,7 @@ function solution(book_time) {
     const newEnd = end.split(':');
 
     const totalStart = Number(newStart[0]) * 60 + Number(newStart[1]);
-    const totalEnd = Number(newEnd[0]) * 60 + Number(newEnd[1]);
+    const totalEnd = Number(newEnd[0]) * 60 + Number(newEnd[1]) + 9;
 
     checkRoom(room, 0, totalStart, totalEnd);
   });
@@ -31,7 +31,7 @@ function checkRoom(room, index, start, end) {
   if (!room[index]) {
     room.push(new Array(1439).fill(0));
   }
-  //입실~퇴실까지 배열을 0 => 1로 변경
+  //입실 ~ 퇴실+10분 까지 배열을 0 => 1로 변경
   if (room[index][start] === 0) {
     for (let i = start; i <= end; i++) {
       room[index][i] = 1;
@@ -44,3 +44,5 @@ function checkRoom(room, index, start, end) {
     checkRoom(room, index + 1, start, end);
   }
 }
+
+//테스트 케이스만 통과되고 제출시 정확도 낮음
