@@ -12,7 +12,7 @@ function solution(book_time) {
   if (book_time.length === 0) return 0;
 
   //분단위로 변경
-  const newBookTime = book_time.map((time) => {
+  book_time.map((time) => {
     const [start, end] = time;
     const newStart = start.split(':');
     const newEnd = end.split(':');
@@ -20,14 +20,7 @@ function solution(book_time) {
     const totalStart = Number(newStart[0]) * 60 + Number(newStart[1]);
     const totalEnd = Number(newEnd[0]) * 60 + Number(newEnd[1]);
 
-    return [totalStart, totalEnd];
-  });
-  //입실시간 앞쪽부터 정렬
-  newBookTime.sort((a, b) => a[0] - b[0]);
-
-  newBookTime.map((time) => {
-    const [start, end] = time;
-    checkRoom(room, 0, start, end);
+    checkRoom(room, 0, totalStart, totalEnd);
   });
 
   return room.length;
@@ -40,7 +33,6 @@ function checkRoom(room, index, start, end) {
   }
   //입실~퇴실까지 배열을 0 => 1로 변경
   if (room[index][start] === 0) {
-    console.log(start, end);
     for (let i = start; i <= end; i++) {
       room[index][i] = 1;
     }
